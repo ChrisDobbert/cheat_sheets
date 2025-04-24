@@ -1,3 +1,93 @@
+# ---------------------------------------
+# Data Loading & Inspection
+# ---------------------------------------
+df = pd.read_csv('file.csv')              # Load data from CSV
+df.head()                                 # View first 5 rows
+df.tail()                                 # View last 5 rows
+df.shape                                  # Get (rows, columns)
+df.info()                                 # Data types and non-null counts
+df.describe()                             # Descriptive statistics
+df.dtypes                                 # Column data types
+df.memory_usage(deep=True)               # Memory usage
+
+# ---------------------------------------
+# Selection & Indexing
+# ---------------------------------------
+df['col']                                 # Select single column
+df[['col1', 'col2']]                      # Select multiple columns
+df.loc[3]                                 # Select by label
+df.iloc[3]                                # Select by index
+df.loc[df['col'] > 5]                     # Conditional selection
+df[df['col'].isin(['a', 'b'])]            # Select rows by values
+df.set_index('col')                       # Set index
+df.reset_index(drop=True)                 # Reset index
+
+# ---------------------------------------
+# Data Types & Conversion
+# ---------------------------------------
+df['col'] = df['col'].astype(int)         # Convert data type
+pd.to_datetime(df['date'])                # Convert to datetime
+df['col'] = pd.to_numeric(df['col'])      # Convert to numeric
+
+# ---------------------------------------
+# Missing Data
+# ---------------------------------------
+df.isnull().sum()                         # Count missing values
+df.notnull()                              # Boolean mask
+df.dropna()                               # Drop rows with NA
+df.fillna(value)                          # Fill missing values
+
+# ---------------------------------------
+# Sorting & Filtering
+# ---------------------------------------
+df.sort_values('col')                     # Sort by column
+df.query('col > 10')                      # Filter with query
+df[df['col'] > 10]                        # Boolean filtering
+df[(df['col1'] > 0) & (df['col2'] < 5)]   # Multiple conditions
+
+# ---------------------------------------
+# Aggregation & Grouping
+# ---------------------------------------
+df['col'].value_counts()                  # Count unique values
+df['col'].mean()                          # Mean of column
+df.groupby('col').agg('mean')            # Group and aggregate
+df.groupby(['col1', 'col2']).agg({'col3': 'sum', 'col4': 'mean'})  # Multi-agg
+
+# ---------------------------------------
+# Apply & Transformation
+# ---------------------------------------
+df['new'] = df['col'].apply(lambda x: x+1)    # Apply function to column
+df.transform({'col': np.sqrt})                # Column-wise transformation
+df['rank'] = df['col'].rank()                 # Rank values
+
+# ---------------------------------------
+# Merging, Concatenating, Reshaping
+# ---------------------------------------
+pd.concat([df1, df2], axis=0)                 # Concatenate DataFrames
+df.merge(df2, on='key')                       # Merge DataFrames
+df.pivot(index='id', columns='var', values='val')  # Pivot table
+df.melt(id_vars='id', value_vars=['v1', 'v2'])     # Unpivot
+
+# ---------------------------------------
+# Window Functions
+# ---------------------------------------
+df['rolling_avg'] = df['col'].rolling(3).mean()  # Rolling window
+df['cumsum'] = df['col'].cumsum()                # Cumulative sum
+df['exp_sum'] = df['col'].expanding().sum()      # Expanding sum
+
+# ---------------------------------------
+# Column Operations
+# ---------------------------------------
+df.rename(columns={'old': 'new'})             # Rename columns
+df.drop('col', axis=1)                        # Drop column
+df.columns = df.columns.str.lower()           # Standardize column names
+
+# ---------------------------------------
+# Exporting
+# ---------------------------------------
+df.to_csv('output.csv', index=False)          # Export to CSV
+df.to_excel('output.xlsx')                    # Export to Excel
+
 # pandas cheat sheet
 
 #[Data Wrangling with pandas](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
